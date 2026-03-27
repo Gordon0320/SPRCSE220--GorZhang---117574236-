@@ -6,8 +6,8 @@ TARGET = matrix_test
 
 all: $(TARGET)
 
-$(TARGET): matrix.c test_matrix.c
-	$(CC) $(CFLAGS) matrix.c test_matrix.c -lcriterion -o $(TARGET)
+$(TARGET): matrix.c sparse_helpingfunction.c test_matrix.c
+	$(CC) $(CFLAGS) matrix.c sparse_helpingfunction.c test_matrix.c -lcriterion -o $(TARGET)
 
 test: $(TARGET)
 	./$(TARGET)

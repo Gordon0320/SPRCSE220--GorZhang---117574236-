@@ -5,6 +5,8 @@
  * Name: Gordon Zhang
  * SBU ID: 117574236
  */
+#include <stdio.h>
+
 /*
  * Helper function to print a sparse matrix representation
  * Not required for the assignment but useful for testing

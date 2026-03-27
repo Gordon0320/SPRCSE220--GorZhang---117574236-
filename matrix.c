@@ -30,6 +30,13 @@ int SparseMatrix(int D[2], int M[D[0]][D[1]],
 
     int nonZeroCount = 0;
 
+     //Initialie the array S to be zero
+    for (int i = 0; i < 3; i ++){
+      for (int j = 0; j < m; j++){
+        S[i][j] = 0;
+      }
+    }
+
     //Count all the non zero number
     for (int i = 0; i < rows; i++){
       for (int j = 0; j < cols; j++){
@@ -42,13 +49,6 @@ int SparseMatrix(int D[2], int M[D[0]][D[1]],
     //If the non zero count is more than the largest dimension, just return -1
     if (nonZeroCount > m){
       return -1;
-    }
-
-    //Initialie the array S to be zero
-    for (int i = 0; i < 3; i ++){
-      for (int j = 0; j < m; j++){
-        S[i][j] = 0;
-      }
     }
 
     //Create the sparse matrix
@@ -68,6 +68,8 @@ int SparseMatrix(int D[2], int M[D[0]][D[1]],
         }
       }
     }
+
+
 
   
 
@@ -124,15 +126,14 @@ int HadamardProduct(const int D[6],
     //Using the smaller row so we make sure i does not go out of bound for matrix A and any of matrix M or N
     for (int i = 0; i < smallerRow && i < aRows; i++){
       //Using the smaller col so we make sure j does not go out of bound for matrix A and any of matrix M or N
-      for (int j = 0; j < smallerCol && j < smallerCol; j++){
+      for (int j = 0; j < smallerCol && j < aCols; j++){
         //Compute the product
         A[i][j] = M[i][j] * N[i][j];
       }
     }
 
     //If same dimension
-    if (mRows == nRows){
-      if (mCols == nCols){
+    if (mRows == nRows && mCols == nCols){
         
         //Exact size
         if (aRows == mRows && aCols == mCols){
@@ -144,7 +145,6 @@ int HadamardProduct(const int D[6],
           //Not enough or compatible
           return 3;
         }
-      }
     } else {
       //Different dimension
       if (aRows >= smallerRow && aCols >= smallerCol){
@@ -185,6 +185,17 @@ int Multiplication(const int D[6],
       }
     }
 
+    //Cannot conduct a multiplication
+    if (mCols != nRows){
+      return -1;
+    }
+    if (aRows < mRows){
+      return -3;
+    }
+    if (aCols < mCols){
+      return -2;
+    }
+
     //Compute the multiplication
     //Start with the row of m and dot product it with the column of n
     //Making sure the rows does not go out of bound for both matrix M and A
@@ -192,7 +203,6 @@ int Multiplication(const int D[6],
       //Making sure the columns does not go out of bound for both matrix N and A
       for (int c = 0; c < nCols && c <aCols; c++){
         int dotProduct = 0;
-
         //Loop that loops from left to right for all elements
         for (int temp = 0; temp < mCols; temp++){
           //Only if there is a row corresponding with n, we do the dot product
@@ -200,7 +210,6 @@ int Multiplication(const int D[6],
             dotProduct += M[r][temp] * N[temp][c];
           }
         } 
-
         //Give dot product
         A[r][c] = dotProduct;
 
@@ -208,34 +217,14 @@ int Multiplication(const int D[6],
 
     }
 
-    //If compatible
-    if (mCols == nRows){
 
-      //Exactly fits in
-      if (aRows == mRows){
-        if (aCols == nCols){
-          return 1;
-        }
-      } else if (aRows >= mRows){
+    //Exactly fits in
+    if (aRows == mRows && aCols == nCols){
+        return 1;
+    } else  {
         //More than enough
-        if (aCols >= nCols){
-          return 2;
-        }
-      } else {
-        //Not enough
-        return 3;
-      }
-
-    } else {
-      //Not compatible
-      if (aRows >= mRows){
-        if (aCols >= nCols){
-          return -1;
-        }
-      }
-      return -2;
+        return 2;
     }
-    return 0;
 }
 
 
@@ -260,29 +249,32 @@ int DiagonalSum(const int D[4],
       }
     }
 
+
+
     int mainD = 0;
     //Main diagonal has some row and column index
     for (int i = 0; i < rows && i < cols; i++ ){
       mainD += A[i][i];
     }
+
     //Assign the value
     if (dsRows > 0 && dsCols > 0){
       DS[0][0] = mainD;
     }
 
+   
+    
     int antiD = 0;
-    //There exist an anti diagonal only if square matrix
-    if (rows == cols){
-      for (int i = 0; i < rows; i++){
-        antiD += A[i][cols - 1 -i];
-      }
-      //Assign anti diagonal
-      if (dsRows > 0){
-        if (dsCols > 1){
-          DS[0][1] = antiD;
-        }
-      }
+    //Making sure i does not go out of bound for matrix A
+    for (int i = 0; i < rows && i < cols; i++){
+      antiD += A[i][cols - 1 -i];
     }
+
+    //Assign anti diagonal
+    if (dsRows > 0 && dsCols > 1){
+        DS[0][1] = antiD;
+    }
+  
 
   
 
@@ -315,18 +307,12 @@ int DiagonalSum(const int D[4],
       DS[i + 2][0] = rowSum;
     }
 
-  
-   
-
-    //Exact fits
-    if (dsRows == (rows + 2)){
-        return 1;
-    } else if (dsRows > (rows + 2) && dsCols > cols){
-        //Enough space
-        return 2;
-    } else {
-      //No enough of space
+    if (dsRows < (rows + 2) || dsCols < cols){
       return -1;
+    } 
+    if (dsRows == (rows + 2) && dsCols == cols){
+      return 1;
     }
-    return 0;
+    return 2;
+
 }
