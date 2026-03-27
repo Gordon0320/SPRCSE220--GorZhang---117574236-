@@ -1,8 +1,15 @@
 /*
+ * Homework 5 – Pointer Operations
+ * CSE 220 – Spring 2026
+ *
+ * Name: Gordon Zhang
+ * SBU ID: 117574236
+ */
+/*
  * Helper function to print a sparse matrix representation
  * Not required for the assignment but useful for testing
  */
-void print_sparse_matrix(int S[3][m], int m) {
+void print_sparse_matrix(int m, int S[3][m]) {
     printf("Sparse Matrix Representation (3 x %d):\n", m);
     printf("Row:    ");
     for (int j = 0; j < m; j++) {

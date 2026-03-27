@@ -1,4 +1,11 @@
 /*
+ * Homework 5 – Pointer Operations
+ * CSE 220 – Spring 2026
+ *
+ * Name: Gordon Zhang
+ * SBU ID: 117574236
+ */
+/*
  * Helper function to print a matrix for testing
  */
 void print_matrix(const char *name, int *matrix, int rows, int cols) {

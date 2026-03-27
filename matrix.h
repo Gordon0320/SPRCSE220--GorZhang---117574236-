@@ -1,3 +1,10 @@
+/*
+ * Homework 5 – Pointer Operations
+ * CSE 220 – Spring 2026
+ *
+ * Name: Gordon Zhang
+ * SBU ID: 117574236
+ */
 
 #ifndef MATRIX_H
 #define MATRIX_H
@@ -18,5 +25,7 @@ int Multiplication(const int D[6],
 int DiagonalSum(const int D[4],
                 const int A[D[0]][D[1]],
                 int DS[D[2]][D[3]]);
+
+void print_sparse_matrix(int m, int S[3][m]);
 
 #endif

@@ -1,4 +1,10 @@
-
+/*
+ * Homework 5 – Pointer Operations
+ * CSE 220 – Spring 2026
+ *
+ * Name: Gordon Zhang
+ * SBU ID: 117574236
+ */
 #include <criterion/criterion.h>
 #include "matrix.h"
 
