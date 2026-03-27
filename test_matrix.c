@@ -662,18 +662,21 @@ Test(DiagonalSum, rectangularCol)
     int r = DiagonalSum(D,A,DS);
     cr_assert_eq(r,1);
 }
-Test(DiagonalSum, anElement)
+Test(DiagonalSum, singleA)
 {
-    int D[4] = {1,1,1,1};
+    int D[4] = {1,1,4,3};
 
     int A[1][1] = {
-        {1}
+        {9}
     };
-    int DS[1][1] = {
-        {0}
+    int DS[4][3] = {
+        {9,0,0},
+        {9,0,0},
+        {9,0,0},
+        {0,0,0}
     };
     int r = DiagonalSum(D,A,DS);
-    cr_assert_eq(r,-1);
+    cr_assert_eq(r,2);
 }
 Test(DiagonalSum, emptyMatrix)
 {
@@ -713,20 +716,50 @@ Test(DiagonalSum, smallDS)
     int r = DiagonalSum(D,A,DS);
     cr_assert_eq(r, -1);
 }
-Test(DiagonalSum, DS)
+Test(DiagonalSum, negative)
+{
+    int D[4] = {2,2,4,2};
+
+    int A[2][2] = {
+        {-1,-2},
+        {-3,-4}
+    };
+    int DS[4][2] = {
+        {-5,-5},
+        {-4,-6},
+        {-3,0},
+        {-7,0}
+    };
+    int r = DiagonalSum(D,A,DS);
+    cr_assert_eq(r, 1);
+}
+Test(DiagonalSum, moreThanEnough)
 {
     int D[4] = {2,2,5,4};
 
     int A[2][2] = {
-        {2,4},
-        {6,8}
+        {1,2},
+        {3,4}
     };
     int DS[5][4] = {
-        {10,10,0,0},
-        {8,12,0,0},
-        {6,0,0,0},
-        {14,0,0,0},
+        {5,5,0,0},
+        {4,6,0,0},
+        {3,0,0,0},
+        {7,0,0,0},
         {0,0,0,0}
+    };
+    int r = DiagonalSum(D,A,DS);
+    cr_assert_eq(r, 2);
+}
+Test(DiagonalSum, emptyDSAndA)
+{
+    int D[4] = {2,2,5,4};
+
+    int A[2][2] = {
+        {}
+    };
+    int DS[5][4] = {
+        {}
     };
     int r = DiagonalSum(D,A,DS);
     cr_assert_eq(r, 2);
