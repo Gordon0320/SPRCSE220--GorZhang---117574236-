@@ -30,14 +30,6 @@ int SparseMatrix(int D[2], int M[D[0]][D[1]],
 
     int nonZeroCount = 0;
 
-    //Initialie the array A to be output
-    // for (int i = 0; i < 3; i ++){
-    //   for (int j = 0; j < m; j++){
-    //     S[i][j] = 0;
-    //   }
-    // }
-
-
     //Count all the non zero number
     for (int i = 0; i < rows; i++){
       for (int j = 0; j < cols; j++){
@@ -50,6 +42,13 @@ int SparseMatrix(int D[2], int M[D[0]][D[1]],
     //If the non zero count is more than the largest dimension, just return -1
     if (nonZeroCount > m){
       return -1;
+    }
+
+    //Initialie the array S to be zero
+    for (int i = 0; i < 3; i ++){
+      for (int j = 0; j < m; j++){
+        S[i][j] = 0;
+      }
     }
 
     //Create the sparse matrix
@@ -70,9 +69,15 @@ int SparseMatrix(int D[2], int M[D[0]][D[1]],
       }
     }
 
+  
 
     return nonZeroCount;
 }
+
+
+
+
+
 
 
 /*----------------------------------------------------
